@@ -1,4 +1,4 @@
-# sun-beam
+# Exercise3
 
 ## Project setup
 ```
