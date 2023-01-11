@@ -1,14 +1,16 @@
 export const userRoutes = [
-  {
-    path: "/",
-    name: "home",
-    meta: {
-      isAuthorized: true,
+    {
+        path: "/",
+        name: "home",
+        meta: {
+            isAuthorized: true,
+        },
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import(
+                /* webpackChunkName: "home" */ "../../views/crm/HomeView.vue"
+            ),
     },
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "home" */ "../../views/crm/HomeView.vue"),
-  },
 ];

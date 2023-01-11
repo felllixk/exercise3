@@ -6,8 +6,8 @@ import registerGuards from "./guards";
 let routes = [...authRoutes, ...userRoutes];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes,
+    history: createWebHistory(process.env.BASE_URL),
+    routes,
 });
 
 registerGuards(router);
