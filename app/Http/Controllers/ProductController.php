@@ -3,12 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Product\DeleteProductRequest;
+use App\Http\Requests\Product\GetBySlugProductRequest;
 use App\Http\Requests\Product\StoreProductRequest;
 use App\Models\Product;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
+    public function getBySlug(GetBySlugProductRequest $request)
+    {
+        $request->validated();
+        $product = Product::where('slug', 'rlike', $request->slug)->get();
+        return $product;
+    }
+
     public function store(StoreProductRequest $request)
     {
         $request->validated();

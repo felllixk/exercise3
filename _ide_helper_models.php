@@ -12,6 +12,29 @@
 
 namespace App\Models{
 /**
+ * App\Models\Basket
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int $product_id
+ * @property int $count
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Basket newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Basket newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Basket query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Basket whereCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Basket whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Basket whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Basket whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Basket whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Basket whereUserId($value)
+ */
+	class Basket extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Catalog
  *
  * @property int $id

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Product;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterRequest extends FormRequest
+class GetBySlugProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,6 +16,11 @@ class RegisterRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        $this->merge(['slug' => $this->route('slug')]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,10 +29,7 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'              => ['required', 'string', 'min:1', 'max:30'],
-            'email'             => ['required', 'email', 'unique:users,email'],
-            'password'          => ['required', 'string', 'min:5', 'max:15'],
-            'password_confirm'  => ['required', 'same:password']
+            'slug'  => ['required', 'string', 'min:1', 'max:100']
         ];
     }
 }

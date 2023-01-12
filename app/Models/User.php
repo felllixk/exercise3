@@ -41,4 +41,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Возвращает ссылки на продукты
+     */
+    public function baskets() // Недочёт: метод возвращает не корзину а несколько корзинок с одним продуктом
+    {
+        return $this->hasMany(Basket::class);
+    }
 }

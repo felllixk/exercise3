@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Order;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterRequest extends FormRequest
+class StoreGuestOrderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,10 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'              => ['required', 'string', 'min:1', 'max:30'],
-            'email'             => ['required', 'email', 'unique:users,email'],
-            'password'          => ['required', 'string', 'min:5', 'max:15'],
-            'password_confirm'  => ['required', 'same:password']
+            'email'         =>  ['required', 'email'],
+            'name'          =>  ['required', 'string', 'min:1', 'max:255'],
+            'products'      =>  ['required', 'array', 'min:1'],
+            'products.*.id' =>  ['required', 'integer', 'exists:products,id']
         ];
     }
 }

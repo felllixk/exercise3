@@ -21,34 +21,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
-
-    Route::prefix('shop')->group(function () {
-        Route::prefix('catalog')->group(function () {
-            Route::post('/', [\App\Http\Controllers\CatalogController::class, 'store']);
-            Route::delete('/{id}', [\App\Http\Controllers\CatalogController::class, 'delete']);
-        });
-
-        Route::prefix('subcatalog')->group(function () {
-            Route::post('/', [\App\Http\Controllers\SubcatalogController::class, 'store']);
-            Route::delete('/{id}', [\App\Http\Controllers\SubcatalogController::class, 'delete']);
-        });
-
-        Route::prefix('category')->group(function () {
-            Route::post('/', [\App\Http\Controllers\CategoryController::class, 'store']);
-            Route::post('/{id}', [\App\Http\Controllers\CategoryController::class, 'delete']);
-        });
-
-        Route::prefix('product')->group(function () {
-            Route::post('/', [\App\Http\Controllers\ProductController::class, 'store']);
-            Route::delete('/{id}', [\App\Http\Controllers\ProductController::class, 'delete']);
-        });
-
-        Route::prefix('characteristics')->group(function () {
-            Route::post('/', [\App\Http\Controllers\CharacteristicController::class, 'store']);
-            Route::delete('/{id}', [\App\Http\Controllers\CharacteristicController::class, 'delete']);
-        });
-    });
 });
 
 Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
 Route::post('register', [\App\Http\Controllers\AuthController::class, 'store'])->name('register');
+
+require_once __DIR__ . '/shop.php';
