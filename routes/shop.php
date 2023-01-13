@@ -22,7 +22,6 @@ Route::prefix('shop')->group(function () {
 
         Route::prefix('product')->group(function () {
             Route::post('/', [\App\Http\Controllers\ProductController::class, 'store']);
-            Route::get('/{slug}', [\App\Http\Controllers\ProductController::class, 'getBySlug']);
             Route::delete('/{id}', [\App\Http\Controllers\ProductController::class, 'delete']);
         });
 
@@ -44,10 +43,14 @@ Route::prefix('shop')->group(function () {
     });
 
     Route::prefix('catalog-tree')->group(function () {
-        Route::get('/', [\App\Http\Controllers\ShopTreeController::class, 'get']);
+        Route::get('/', [\App\Http\Controllers\ShopTreeController::class, 'index']);
     });
 
     Route::prefix('order')->group(function () {
         Route::post('/guest', [\App\Http\Controllers\OrderController::class, 'storeGuest']);
+    });
+
+    Route::prefix('product')->group(function () {
+        Route::get('/', [\App\Http\Controllers\ProductController::class, 'index']);
     });
 });

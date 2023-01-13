@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->index();
             $table->text('description');
-            $table->decimal('amount', 8, 2);
+            $table->bigInteger('amount');
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreignId('catalog_id')->references('id')->on('catalogs')->cascadeOnDelete();
             $table->foreignId('subcatalog_id')->references('id')->on('subcatalogs')->cascadeOnDelete();

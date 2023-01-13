@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('characteristics', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->index();
             $table->string('value');
             $table->foreignId('product_id')->nullable()->references('id')->on('products')->cascadeOnDelete();
             $table->timestamps();
