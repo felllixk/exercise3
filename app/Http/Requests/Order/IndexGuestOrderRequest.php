@@ -4,7 +4,7 @@ namespace App\Http\Requests\Order;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreGuestOrderRequest extends FormRequest
+class IndexGuestOrderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,6 +16,11 @@ class StoreGuestOrderRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        $this->merge(['email' => $this->route('email')]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,11 +29,7 @@ class StoreGuestOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'                 =>  ['required', 'email'],
-            'name'                  =>  ['required', 'string', 'min:1', 'max:255'],
-            'baskets'               =>  ['required', 'array', 'min:1'],
-            'baskets.*.product_id'  =>  ['required', 'integer', 'exists:products,id'],
-            'baskets.*.count'      =>  ['required', 'integer', 'exists:products,id']
+            'email' =>  ['required', 'email']
         ];
     }
 }

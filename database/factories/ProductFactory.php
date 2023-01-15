@@ -23,14 +23,15 @@ class ProductFactory extends Factory
     {
         $name = fake()->unique()->word();
         $slug = Str::slug($name);
-        $catalog = Catalog::inRandomOrder()->first();
-        $subcatalog = Subcatalog::inRandomOrder()->whereCatalogId($catalog->id)->first();
+        $subcatalog = Subcatalog::inRandomOrder()->first();
+        $catalog = $subcatalog->catalog;
         $category = Category::inRandomOrder()->whereSubcatalogId($subcatalog->id)->first();
+
         return [
             'name'          =>  $name,
             'slug'          =>  $slug,
             'description'   =>  fake()->sentence(3),
-            'amount'        =>  fake()->numberBetween($min = 100, $max = 10000),
+            'amount'        =>  fake()->numberBetween(100, 10000),
             'catalog_id'    =>  $catalog->id,
             'subcatalog_id' =>  $subcatalog->id,
             'category_id'   =>  $category ? $category->id : null,

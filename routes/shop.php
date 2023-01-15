@@ -38,17 +38,20 @@ Route::prefix('shop')->group(function () {
             Route::delete('/{id}', [\App\Http\Controllers\BasketController::class, 'destroy']);
         });
 
-        Route::prefix('order')->group(function () {
+        Route::prefix('orders')->group(function () {
             Route::post('/', [\App\Http\Controllers\OrderController::class, 'store']);
+            Route::get('/', [\App\Http\Controllers\OrderController::class, 'index']);
         });
     });
+
 
     Route::prefix('catalog-tree')->group(function () {
         Route::get('/', [\App\Http\Controllers\ShopTreeController::class, 'index']);
     });
 
-    Route::prefix('order')->group(function () {
+    Route::prefix('orders')->group(function () {
         Route::post('/guest', [\App\Http\Controllers\OrderController::class, 'storeGuest']);
+        Route::get('/guest/{email}', [\App\Http\Controllers\OrderController::class, 'indexGuest']);
     });
 
     Route::prefix('characteristics')->group(function () {

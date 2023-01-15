@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Enums\OrderStatus;
+use App\Http\Requests\Order\IndexGuestOrderRequest;
 use App\Http\Requests\Order\StoreGuestOrderRequest;
 use App\Http\Requests\Order\StoreOrderRequest;
 use App\Models\Basket;
@@ -12,6 +13,16 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+    public function index(Request $request)
+    {
+        return $request->user()->orders;
+    }
+
+    public function indexGuest(IndexGuestOrderRequest $request)
+    {
+        return Order::whereEmail($request->email)->whereUserId(null)->get();
+    }
+
     public function store(StoreOrderRequest $request)
     {
         $user = $request->user();
@@ -21,27 +32,22 @@ class OrderController extends Controller
         }
 
         $productIds = [];
+        $amount = 0;
         foreach ($baskets as $basket) {
-            /**
-             * Можно было бы использовать метод product на каждой итерации.
-             * Но для оптимизации, я вызову всего одним запросом ниже
-             */
-            $productIds[] = $basket['product_id'];
+            $productIds[] = $basket->product_id;
+            $amount += $basket->count * $basket->product->amount;
         }
 
-        $products = Product::findMany($productIds);
         $order = new Order();
         $order->name = $user->name;
         $order->email = $user->email;
         $order->user_id = $user->id;
-        $order->products = $products->toJson();
-        $order->amount = $products->sum('amount');
+        $order->baskets = $baskets->toArray();
+        $order->amount = $amount;
         $order->setStatus(OrderStatus::waiting);
         $order->save();
 
-        foreach ($baskets as $basket) { // Удаляем всё из корзины после создания заказа
-            $basket->delete();
-        }
+        Basket::whereUserId($user->id)->delete();
 
         return $order->id;
     }
@@ -50,15 +56,18 @@ class OrderController extends Controller
     {
         $request->validated();
 
-        $productIds = [];
-        foreach ($request->products as $product) {
-            $productIds[] = $product['id'];
+        $orderAmount = 0;
+        $baskets = $request->baskets;
+        foreach ($baskets as &$basket) {
+            $product = Product::find($basket['product_id']);
+            $orderAmount += $product->amount * $basket['count'];
+            unset($basket['product_id']);
+            $basket['product'] = $product->toArray();
         }
-        $orderAmount = Product::findMany($productIds)->sum('amount');
         $order = new Order();
         $order->name = $request->name;
         $order->email = $request->email;
-        $order->products = json_encode($request->products);
+        $order->baskets = $baskets;
         $order->amount = $orderAmount;
         $order->setStatus(OrderStatus::waiting);
         $order->save();

@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('email');
+            $table->string('email')->index();
             $table->string('name');
-            $table->json('products');
-            $table->foreignId('user_id')->nullable()->unique()->references('id')->on('users')->nullOnDelete();
+            $table->json('baskets');
+            $table->foreignId('user_id')->nullable()->references('id')->on('users')->nullOnDelete();
             // Можно добавить секретный ключ исходя из json для проверки подлинности заказа
             $table->bigInteger('amount');
             $table->enum('status', ['WAITING', 'PAID', 'REJECTED']);
