@@ -9,6 +9,14 @@
           Магазин
         </RouterLink>
       </li>
+      <li class="-mb-px mr-1">
+        <RouterLink
+          class="ml-10 text-white font-semibold"
+          :to="{ name: 'orders' }"
+        >
+          Заказы
+        </RouterLink>
+      </li>
     </ul>
     <ul class="flex justify-end w-full mr-5 mt-5">
       <li class="mr-1 px-2 font-semibold text-white">

@@ -19,7 +19,6 @@ export default {
             count: item.count,
           });
         }
-        // console.log(item);
       });
       if (filteredBaskets.length != 0) {
         await BasketApi.storeMany({ baskets: filteredBaskets });

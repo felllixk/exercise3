@@ -96,7 +96,6 @@ export default {
     async fetchCatalog() {
       const catalogs = await CatalogApi.fetchCatalog();
       this.catalogs = catalogs.data;
-      console.log(catalogs);
     },
     toggleShow() {
       this.show = !this.show;
@@ -128,7 +127,6 @@ export default {
       this.subcatalogSelect = catalog.subcatalog;
       this.categorySelect = catalog.subcatalog.category;
       emitter.emit("setCategory", category.id);
-      console.log(category);
     },
     collapseFilters() {
       if (this.subcatalogSelect) {

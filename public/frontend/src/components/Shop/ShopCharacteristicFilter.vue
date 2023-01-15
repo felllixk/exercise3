@@ -30,7 +30,10 @@
         v-for="(item, index) in characteristics"
         :key="index"
       >
-        <button @click="appendForFilter(item.name)">
+        <button
+          class="ml-5"
+          @click="appendForFilter(item.name)"
+        >
           {{ item.name }}
         </button>
       </li>
@@ -59,7 +62,6 @@ export default {
   },
   async mounted() {
     this.characteristics = await this.fetchCharacteristics();
-    console.log(this.characteristics);
   },
   methods: {
     async fetchCharacteristics() {
@@ -71,7 +73,6 @@ export default {
         name: name,
         value: null,
       });
-      console.log(this.forFilter);
     },
     unsetForFilter(index) {
       this.forFilter.splice(index, 1);

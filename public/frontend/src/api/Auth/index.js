@@ -35,7 +35,6 @@ export const AuthApi = {
     };
     const json = JSON.stringify(data);
     return ApiInstance.post(routes.register, json).then((response) => {
-      console.log("register success!");
       return this.login(email, password);
     });
   },

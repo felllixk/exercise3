@@ -32,11 +32,9 @@ export default {
   watch: {
     min(value) {
       emitter.emit("setMinAmount", value);
-      console.log(value);
     },
     max(value) {
       emitter.emit("setMaxAmount", value);
-      console.log(value);
     },
   },
 };

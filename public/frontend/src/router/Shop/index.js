@@ -11,4 +11,10 @@ export default [
     component: () =>
       import(/* webpackChunkName: "basket" */ "@/views/BasketView.vue"),
   },
+  {
+    path: "/orders",
+    name: "orders",
+    component: () =>
+      import(/* webpackChunkName: "orders" */ "@/views/OrdersView.vue"),
+  },
 ];

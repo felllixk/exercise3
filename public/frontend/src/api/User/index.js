@@ -6,7 +6,6 @@ export const UserApi = {
     return ApiInstance.get(routes.user)
       .then((response) => {
         store.dispatch("UserModule/setUser", response.data);
-        console.log(response);
         return response;
       })
       .catch(() => {

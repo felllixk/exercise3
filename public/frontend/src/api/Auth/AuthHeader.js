@@ -9,7 +9,6 @@ export default async function () {
   ApiInstance.defaults.headers.common["Authorization"] =
     "Bearer " + store.getters["Auth/token"];
   if (!(await UserApi.getUser())) {
-    console.log(UserApi.getUser());
     store.dispatch("Auth/unsetToken");
   }
 }

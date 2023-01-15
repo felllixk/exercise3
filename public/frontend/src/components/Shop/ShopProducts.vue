@@ -61,7 +61,6 @@ export default {
       this.fetch();
     });
     emitter.on("setCt1", ({ catalog, subcatalog, category }) => {
-      console.log(catalog, subcatalog, category);
       this.filters.catalog_id = catalog?.id;
       this.filters.subcatalog_id = subcatalog?.id;
       this.filters.category_id = category?.id;
@@ -73,13 +72,15 @@ export default {
     });
     emitter.on("setCharacteristics", (value) => {
       this.filters.characteristics = value;
-      console.log(value);
       this.fetch();
     });
     this.fetch();
   },
   methods: {
-    async fetch() {
+    async fetch(pageIgnore = false) {
+      if (!pageIgnore) {
+        this.filters.page = 1;
+      }
       const products = await ProductApi.fetchProducts(this.filters);
       this.meta = products.meta;
       this.products = products.data;
@@ -105,7 +106,7 @@ export default {
     },
     setPage(page) {
       this.filters.page = page;
-      this.fetch();
+      this.fetch(true);
     },
     unsetFilters() {
       this.filters.subcatalog_id = null;
