@@ -47,9 +47,12 @@ export default {
   methods: {
     async addBasket(product) {
       if (this.$store.getters["Auth/isAuthorized"]) {
-        await BasketApi.addBasket({
+        const id = await BasketApi.addBasket({
           product_id: product.id,
         });
+        this.$store.dispatch("Basket/pushProduct", product);
+        this.$store.dispatch("Basket/setProductId", { product, id });
+        return;
       }
       this.$store.dispatch("Basket/pushProduct", product);
     },

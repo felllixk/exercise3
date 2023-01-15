@@ -28,7 +28,7 @@ class StoreGuestOrderRequest extends FormRequest
             'name'                  =>  ['required', 'string', 'min:1', 'max:255'],
             'baskets'               =>  ['required', 'array', 'min:1'],
             'baskets.*.product_id'  =>  ['required', 'integer', 'exists:products,id'],
-            'baskets.*.count'      =>  ['required', 'integer', 'exists:products,id']
+            'baskets.*.count'       =>  ['required', 'integer',]
         ];
     }
 }

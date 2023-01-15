@@ -22,6 +22,16 @@ export default {
         state.basket.push(basketItem);
       }
     },
+    SET_ID_PRODUCT(state, { product, id }) {
+      let basketItem = state.basket.find(
+        (item) => item?.product?.id == product.id
+      );
+      console.log(basketItem);
+      if (basketItem) {
+        basketItem.id = id;
+        console.log(basketItem);
+      }
+    },
     SET_COUNT(state, { id, count }) {
       const basketItem = state.basket.find((item) => item.product.id == id);
       if (basketItem) {
@@ -46,6 +56,10 @@ export default {
     },
   },
   actions: {
+    setProductId({ commit }, { product, id }) {
+      commit("SET_ID_PRODUCT", { product, id });
+      commit("FRESH_BASKET");
+    },
     pushProduct({ commit }, product) {
       commit("PUSH_PRODUCT", product);
       commit("FRESH_BASKET");
