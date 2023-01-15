@@ -18,7 +18,7 @@ class CharacteristicResource extends JsonResource
             'id'        =>  $this->id,
             'name'      =>  $this->name,
             'value'     =>  $this->value,
-            'product'   =>  new ProductResource($this->product)
+            'product'   =>  $this->product
         ];
     }
 }

@@ -2,7 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Models\Catalog;
+use App\Models\Category;
+use App\Models\Subcatalog;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
@@ -16,8 +21,20 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
+        $name = fake()->unique()->word();
+        $slug = Str::slug($name);
+        $catalog = Catalog::inRandomOrder()->first();
+        $subcatalog = Subcatalog::inRandomOrder()->whereCatalogId($catalog->id)->first();
+        $category = Category::inRandomOrder()->whereSubcatalogId($subcatalog->id)->first();
         return [
-            //
+            'name'          =>  $name,
+            'slug'          =>  $slug,
+            'description'   =>  fake()->sentence(3),
+            'amount'        =>  fake()->numberBetween($min = 100, $max = 10000),
+            'catalog_id'    =>  $catalog->id,
+            'subcatalog_id' =>  $subcatalog->id,
+            'category_id'   =>  $category ? $category->id : null,
+            'user_id'       =>  User::inRandomOrder()->first()->id
         ];
     }
 }

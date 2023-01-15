@@ -19,8 +19,10 @@ class ProductController extends Controller
 
         $perPage = 10;
 
+
         if ($request->filled('slug')) {
-            $query->where('slug', 'like', "%$request->slug%");
+            $slug = Str::slug($request->slug); // В конечно итоге всё равно переводим в слаг
+            $query->where('slug', 'like', "%$slug%");
         }
 
         if ($request->filled('amount.min')) {
@@ -40,15 +42,16 @@ class ProductController extends Controller
         }
 
         if ($request->filled('category_id')) {
-            $query->where('category_id', '=', $request->catalog_id);
+            $query->where('category_id', '=', $request->category_id);
         }
 
         if ($request->filled('characteristics.*')) {
-            $query->join('characteristics', function ($join) use ($request) { // Подключаем таблицу для дополнительного сравнения
-                $join->on('products.id', '=', 'characteristics.product_id'); // Находим "сходство" между ними
+            $query->whereHas('characteristic', function ($q) use ($request) { // Берём продукты которые имеют характеристики
                 foreach ($request->characteristics as $characteristic) { // Динамично перебираем дополнительные характеристики
-                    $join->where('characteristics.name', '=', $characteristic['name']);
-                    $join->Where('characteristics.value', '=', $characteristic['value']);
+                    $q->where('characteristics.name', '=', $characteristic['name']);
+                    if (isset($characteristic['value'])) {
+                        $q->Where('characteristics.value', '=', $characteristic['value']);
+                    }
                 }
             });
         }
@@ -58,7 +61,6 @@ class ProductController extends Controller
         }
 
         $products = $query->paginate($perPage);
-
 
         return IndexProductsResource::collection($products);
     }

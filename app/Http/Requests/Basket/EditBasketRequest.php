@@ -18,13 +18,13 @@ class EditBasketRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        $this->merge(['product_id' => $this->route('product_id')]);
+        $this->merge(['id' => $this->route('id')]);
     }
 
     public function rules()
     {
         return [
-            'product_id'    => ['required', 'exists:products,id'],
+            'id'    => ['required', 'exists:baskets,id'],
             'count'         => ['integer', 'min:1', "max:1000000000"]
         ];
     }

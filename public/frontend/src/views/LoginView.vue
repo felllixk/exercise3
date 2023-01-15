@@ -1,6 +1,7 @@
 <template>
   <AuthLayout>
     <LoginForm
+      class="2xl:mt-32"
       @error="alertError"
       @success="$router.push({ name: 'home' })"
     />
@@ -30,3 +31,5 @@ export default {
   },
 };
 </script>
+<style>
+</style>

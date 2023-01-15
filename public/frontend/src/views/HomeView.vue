@@ -1,14 +1,19 @@
 <template>
   <div class="home">
-    <ShopLayout />
+    <ShopLayout>
+      <TheShop />
+    </ShopLayout>
   </div>
 </template>
 
 <script>
-import ShopLayout from '@/layouts/ShopLayout.vue';
+import TheShop from "@/components/Shop/TheShop.vue";
+import ShopLayout from "@/layouts/ShopLayout.vue";
 
 export default {
   name: "HomeView",
-  components: { ShopLayout },
+  components: { ShopLayout, TheShop },
 };
 </script>
+
+<style></style>

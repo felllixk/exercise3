@@ -1,6 +1,7 @@
 <template>
   <AuthLayout>
     <RegisterForm
+      class="2xl:mt-12"
       @error="alertError"
       @success="$router.push({ name: 'home' })"
     />

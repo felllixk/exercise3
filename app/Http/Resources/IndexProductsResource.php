@@ -15,15 +15,17 @@ class IndexProductsResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'name'          =>  $this->name,
-            'slug'          =>  $this->slug,
-            'description'   =>  $this->description,
-            'amount'        =>  $this->amount,
-            'user_id'       =>  $this->user_id,
-            'catalog_id'    =>  $this->catalog_id,
-            'subcatalog_id' =>  $this->subcatalog_id,
-            'category_id'   =>  $this->category_id,
-            'updated_at'    =>  $this->updated_at
+            'id'                =>  $this->id,
+            'name'              =>  $this->name,
+            'slug'              =>  $this->slug,
+            'description'       =>  $this->description,
+            'amount'            =>  $this->amount,
+            'user_id'           =>  $this->user_id,
+            'catalog_id'        =>  $this->catalog_id,
+            'subcatalog_id'     =>  $this->subcatalog_id,
+            'category_id'       =>  $this->category_id,
+            'characteristics'   =>  $this->characteristic,
+            'updated_at'        =>  $this->updated_at
         ];
     }
 }

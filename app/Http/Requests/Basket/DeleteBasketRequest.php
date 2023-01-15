@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Basket;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class DeleteBasketRequest extends FormRequest
 {
@@ -13,18 +15,18 @@ class DeleteBasketRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     protected function prepareForValidation()
     {
-        $this->merge(['product_id' => $this->route('product_id')]);
+        $this->merge(['id' => $this->route('id')]);
     }
 
     public function rules()
     {
         return [
-            'product_id' => ['required', 'exists:products,id']
+            'id' => Rule::exists('baskets', 'id')->where('user_id', Auth::id()),
         ];
     }
 }

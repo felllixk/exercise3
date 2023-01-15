@@ -4,10 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Characteristic\DeleteCharacteristicRequest;
 use App\Http\Requests\Characteristic\StoreCharacteristicRequest;
+use App\Http\Resources\CharacteristicResource;
 use App\Models\Characteristic;
 
 class CharacteristicController extends Controller
 {
+    public function index()
+    {
+        $characteristics = Characteristic::all();
+        return CharacteristicResource::collection($characteristics);
+    }
+
     public function store(StoreCharacteristicRequest $request)
     {
         $request->validated();

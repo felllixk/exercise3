@@ -1,42 +1,45 @@
 <template>
-  <div class="flex border-b">
-    <ul class="flex">
+  <div class="flex bg-gray-700">
+    <ul class="flex bg-gray-700 mt-5">
       <li class="-mb-px mr-1">
-        <a
-          class="nav-element active"
-          href="#"
-        >Магазин</a>
+        <RouterLink
+          class="ml-10 text-white font-semibold"
+          :to="{ name: 'home' }"
+        >
+          Магазин
+        </RouterLink>
       </li>
     </ul>
-    <ul class="flex justify-end w-full">
-      <li class="mr-1">
-        <RouterLink
-          v-if="!isAuthorized"
-          class="nav-element"
-          :to="{ name: 'login' }"
-        >
+    <ul class="flex justify-end w-full mr-5 mt-5">
+      <li class="mr-1 px-2 font-semibold text-white">
+        <RouterLink :to="{ name: 'basket' }">
+          Корзина
+        </RouterLink>
+      </li>
+      <li
+        v-if="!isAuthorized"
+        class="mr-1 px-2 text-white font-semibold"
+      >
+        <RouterLink :to="{ name: 'login' }">
           Войти
         </RouterLink>
       </li>
-      <li class="mr-1">
-        <RouterLink
-          v-if="!isAuthorized"
-          class="nav-element"
-          :to="{ name: 'register' }"
-        >
+      <li
+        v-if="!isAuthorized"
+        class="mr-1 px-2 text-white font-semibold"
+      >
+        <RouterLink :to="{ name: 'register' }">
           Регистрация
         </RouterLink>
       </li>
-      <li class="mr-1">
-        <span class="nav-element name">{{
-          $store.getters["UserModule/getUser"]?.name
-        }}</span>
+      <li class="mr-1 px-2 text-white font-semibold pointer-events-none">
+        <span>{{ $store.getters["UserModule/getUser"]?.name }}</span>
       </li>
-      <li class="mr-1">
-        <LogoutButton
-          v-if="isAuthorized"
-          class="nav-element"
-        />
+      <li
+        v-if="isAuthorized"
+        class="mr-1 px-2 text-white font-semibold"
+      >
+        <LogoutButton />
       </li>
     </ul>
   </div>
@@ -53,14 +56,4 @@ export default {
   },
 };
 </script>
-<style>
-.nav-element {
-  @apply bg-white inline-block rounded-t py-2 px-4 text-blue-700 font-semibold;
-}
-.nav-element.name {
-  @apply bg-white inline-block rounded-t py-2 px-4 text-black font-semibold;
-}
-.active {
-  @apply border-l border-t border-r;
-}
-</style>
+<style></style>

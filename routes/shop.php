@@ -33,7 +33,8 @@ Route::prefix('shop')->group(function () {
         Route::prefix('basket')->group(function () {
             Route::get('/', [\App\Http\Controllers\BasketController::class, 'show']);
             Route::post('/', [\App\Http\Controllers\BasketController::class, 'store']);
-            Route::put('/{product_id}', [\App\Http\Controllers\BasketController::class, 'edit']);
+            Route::post('/many', [\App\Http\Controllers\BasketController::class, 'storeMany']);
+            Route::put('/{id}', [\App\Http\Controllers\BasketController::class, 'edit']);
             Route::delete('/{id}', [\App\Http\Controllers\BasketController::class, 'destroy']);
         });
 
@@ -48,6 +49,10 @@ Route::prefix('shop')->group(function () {
 
     Route::prefix('order')->group(function () {
         Route::post('/guest', [\App\Http\Controllers\OrderController::class, 'storeGuest']);
+    });
+
+    Route::prefix('characteristics')->group(function () {
+        Route::get('/', [\App\Http\Controllers\CharacteristicController::class, 'index']);
     });
 
     Route::prefix('product')->group(function () {

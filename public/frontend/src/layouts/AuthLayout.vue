@@ -1,13 +1,19 @@
 <template>
-  <div
-    class="relative flex min-h-screen text-gray-800 antialiased flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12"
-  >
-    <slot />
+  <div class="min-h-screen bg-gray-700">
+    <TheNavbar />
+    <div
+      class="relative flex justify-center items-center flex-col antialiased overflow-hidden py-6 sm:py-12 h-full"
+    >
+      <slot />
+    </div>
   </div>
 </template>
 
 <script>
+import TheNavbar from "@/components/TheNavbar.vue";
+
 export default {
   name: "AuthLayout",
+  components: { TheNavbar },
 };
 </script>

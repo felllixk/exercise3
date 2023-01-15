@@ -35,8 +35,8 @@ class IndexProductsRequest extends FormRequest
             'page'                      =>  ['nullable', 'integer'],
             'per_page'                  =>  ['nullable', 'integer'],
             'characteristics'           =>  ['nullable', 'array'],
-            'characteristics.*.name'    =>  ['string', 'max:45'],
-            'characteristics.*.value'   =>  ['string', 'max:45']
+            'characteristics.*.name'    =>  ['max:45'],
+            'characteristics.*.value'   =>  ['max:45']
         ];
     }
 }

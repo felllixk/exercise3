@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('baskets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->unique()->references('id')->on('users')->cascadeOnDelete();
+            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreignId('product_id')->references('id')->on('products')->cascadeOnDelete();
+            $table->unique(['user_id', 'product_id']);
             $table->bigInteger('count')->default(1);
             $table->timestamps();
         });
